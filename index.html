@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kelsiy's Closet | Management System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>Kelsiy's Closet</h1>
+        <p>Inventory and Sales Management System</p>
+    </header>
+
+    <nav>
+        <button onclick="showSection('dashboard')">Dashboard</button>
+        <button onclick="showSection('products')">Products</button>
+        <button onclick="showSection('sales')">Sales</button>
+        <button onclick="showSection('reports')">Reports</button>
+    </nav>
+
+    <main>
+        <section id="dashboard">
+            <h2>Dashboard</h2>
+            <p>Welcome to Kelsiy's Closet Management System.</p>
+
+            <div class="summary">
+                <div class="card">
+                    <h3>Total Products</h3>
+                    <p id="totalProducts">0</p>
+                </div>
+
+                <div class="card">
+                    <h3>Stock Remaining</h3>
+                    <p id="totalStock">0</p>
+                </div>
+
+                <div class="card">
+                    <h3>Total Sales</h3>
+                    <p id="totalSales">KSh 0</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="products" hidden>
+            <h2>Product Inventory</h2>
+            <p>Product records will appear here.</p>
+        </section>
+
+        <section id="sales" hidden>
+            <h2>Record Sales</h2>
+            <p>Sales records will appear here.</p>
+        </section>
+
+        <section id="reports" hidden>
+            <h2>Reports</h2>
+            <p>Sales and inventory reports will appear here.</p>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kelsiy's Closet</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
