@@ -5,7 +5,7 @@
 
 // STEP 1: ENTER YOUR SUPABASE DETAILS HERE
 
-const SUPABASE_URL = "zqvjaqpqtctnvylgtwjg ";
+const SUPABASE_URL = "https://zqvjaqpqtctnvylgtwjg.supabase.co";
 
 const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_2sKvDrUEA7KfUKohQ41j1g_54OcXZsR";
 
