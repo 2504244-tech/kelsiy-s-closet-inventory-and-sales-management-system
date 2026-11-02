@@ -1,737 +1,141 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kelsiy's Closet | Management System</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kelsiy's Closet | Sign In</title>
 
-  <style>
-    :root {
-      --wine: #70263d;
-      --wine-dark: #4d1729;
-      --cream: #faf6f2;
-      --white: #ffffff;
-      --text: #30262a;
-      --muted: #81757a;
-      --border: #eee3e6;
-      --green: #287a52;
-    }
+    <link rel="stylesheet" href="style.css">
 
-    * { box-sizing: border-box; }
-
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: var(--cream);
-      color: var(--text);
-    }
-
-    header {
-      background: var(--wine-dark);
-      color: white;
-      padding: 22px 6%;
-    }
-
-    .brand {
-      font-family: Georgia, serif;
-      font-size: 27px;
-      letter-spacing: 1px;
-    }
-
-    header p {
-      margin: 7px 0 0;
-      color: #ead9df;
-      font-size: 13px;
-    }
-
-    .layout {
-      display: flex;
-      min-height: calc(100vh - 90px);
-    }
-
-    aside {
-      width: 225px;
-      background: white;
-      border-right: 1px solid var(--border);
-      padding: 25px 14px;
-      flex-shrink: 0;
-    }
-
-    .nav-label {
-      color: var(--muted);
-      font-size: 11px;
-      font-weight: bold;
-      margin: 12px 12px;
-      letter-spacing: 1px;
-    }
-
-    .nav-button {
-      display: block;
-      width: 100%;
-      border: 0;
-      padding: 13px 12px;
-      margin-bottom: 5px;
-      background: transparent;
-      text-align: left;
-      border-radius: 7px;
-      font-size: 14px;
-      cursor: pointer;
-      color: var(--text);
-    }
-
-    .nav-button:hover,
-    .nav-button.active {
-      background: #f5e8ed;
-      color: var(--wine);
-      font-weight: bold;
-    }
-
-    main {
-      flex: 1;
-      min-width: 0;
-      padding: 30px;
-    }
-
-    .page { display: none; }
-    .page.active { display: block; }
-
-    h1 {
-      font-family: Georgia, serif;
-      font-size: 30px;
-      margin: 0 0 8px;
-    }
-
-    .subtitle {
-      color: var(--muted);
-      font-size: 14px;
-      margin: 0 0 25px;
-    }
-
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 16px;
-      margin-bottom: 25px;
-    }
-
-    .card {
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 21px;
-    }
-
-    .stat-title {
-      font-size: 13px;
-      color: var(--muted);
-    }
-
-    .stat-value {
-      font-size: 27px;
-      font-weight: bold;
-      margin-top: 13px;
-      overflow-wrap: anywhere;
-    }
-
-    .section-heading {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 17px;
-    }
-
-    h2 { font-size: 19px; margin: 0; }
-
-    button, input, select, textarea {
-      font: inherit;
-    }
-
-    .primary {
-      background: var(--wine);
-      color: white;
-      border: 0;
-      border-radius: 7px;
-      padding: 11px 16px;
-      cursor: pointer;
-    }
-
-    .primary:hover { background: var(--wine-dark); }
-
-    .secondary {
-      background: white;
-      color: var(--wine);
-      border: 1px solid var(--border);
-      border-radius: 7px;
-      padding: 10px 14px;
-      cursor: pointer;
-    }
-
-    .search {
-      width: 100%;
-      padding: 12px;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      margin-bottom: 17px;
-      background: white;
-    }
-
-    .table-wrap {
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      overflow-x: auto;
-    }
-
-    table {
-      border-collapse: collapse;
-      width: 100%;
-      min-width: 570px;
-    }
-
-    th, td {
-      padding: 14px;
-      border-bottom: 1px solid var(--border);
-      text-align: left;
-      font-size: 13px;
-    }
-
-    th {
-      background: #fcf8f9;
-      color: var(--muted);
-      font-weight: bold;
-    }
-
-    .status {
-      display: inline-block;
-      background: #e7f5ec;
-      color: var(--green);
-      padding: 5px 8px;
-      border-radius: 20px;
-      font-size: 11px;
-    }
-
-    .status.low {
-      background: #fff0dc;
-      color: #97570c;
-    }
-
-    .form-card {
-      max-width: 650px;
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 24px;
-    }
-
-    .form-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-    }
-
-    .field {
-      display: flex;
-      flex-direction: column;
-      gap: 7px;
-      margin-bottom: 16px;
-    }
-
-    .field label {
-      font-size: 13px;
-      font-weight: bold;
-    }
-
-    .field input, .field select, .field textarea {
-      width: 100%;
-      padding: 11px;
-      border: 1px solid #ded3d7;
-      border-radius: 7px;
-      background: white;
-    }
-
-    .field textarea {
-      min-height: 75px;
-      resize: vertical;
-    }
-
-    .notice {
-      padding: 14px;
-      background: #f5e8ed;
-      border-radius: 8px;
-      color: var(--wine-dark);
-      font-size: 13px;
-      line-height: 1.6;
-      margin-bottom: 20px;
-    }
-
-    .empty {
-      color: var(--muted);
-      text-align: center;
-      padding: 25px;
-    }
-
-    .catalogue {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 16px;
-    }
-
-    .product-card {
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      overflow: hidden;
-    }
-
-    .product-image {
-      height: 145px;
-      display: grid;
-      place-items: center;
-      background: #f1e5e9;
-      color: var(--wine);
-      font-size: 34px;
-    }
-
-    .product-info { padding: 15px; }
-    .product-info h3 { font-size: 16px; margin: 0 0 8px; }
-    .product-info p { font-size: 13px; color: var(--muted); }
-    .price { color: var(--wine); font-weight: bold; font-size: 17px; }
-
-    footer {
-      padding: 22px;
-      text-align: center;
-      color: var(--muted);
-      font-size: 12px;
-    }
-
-    @media (max-width: 800px) {
-      .layout { display: block; }
-      aside {
-        width: 100%;
-        display: flex;
-        overflow-x: auto;
-        padding: 10px;
-        border-right: 0;
-        border-bottom: 1px solid var(--border);
-      }
-      .nav-label { display: none; }
-      .nav-button { min-width: max-content; width: auto; }
-      main { padding: 20px 14px; }
-      .stats { grid-template-columns: 1fr; }
-      .catalogue { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    }
-
-    @media (max-width: 450px) {
-      .form-grid { grid-template-columns: 1fr; gap: 0; }
-      .catalogue { grid-template-columns: 1fr; }
-      .brand { font-size: 23px; }
-    }
-  </style>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="script.js" defer></script>
 </head>
 
 <body>
-  <header>
-    <div class="brand">Kelsiy's Closet</div>
-    <p>Inventory and Sales Management Information System</p>
-  </header>
 
-  <div class="layout">
-    <aside>
-      <div>
-        <div class="nav-label">WORKSPACE</div>
-        <button class="nav-button active" data-page="dashboard">⌂ Dashboard</button>
-        <button class="nav-button" data-page="products">▦ Products & Stock</button>
-        <button class="nav-button" data-page="add-product">＋ Add Product</button>
-        <button class="nav-button" data-page="sales">↗ Record a Sale</button>
-        <button class="nav-button" data-page="catalogue">♡ Customer Catalogue</button>
-        <button class="nav-button" data-page="reports">▤ Reports</button>
-      </div>
-    </aside>
+    <main class="login-container">
 
-    <main>
-      <section class="page active" id="dashboard">
-        <h1>Dashboard</h1>
-        <p class="subtitle">Welcome to your store management workspace.</p>
+        <section class="login-card">
 
-        <div class="stats">
-          <div class="card">
-            <div class="stat-title">Products Listed</div>
-            <div class="stat-value" id="total-products">0</div>
-          </div>
-          <div class="card">
-            <div class="stat-title">Units in Stock</div>
-            <div class="stat-value" id="total-stock">0</div>
-          </div>
-          <div class="card">
-            <div class="stat-title">Sales Recorded</div>
-            <div class="stat-value" id="total-sales">0</div>
-          </div>
-        </div>
+            <!-- Logo created using HTML and CSS -->
+            <header class="brand">
+                <div class="logo">
+                    <span class="logo-k">K</span>
+                    <span class="logo-c">C</span>
+                </div>
 
-        <div class="card">
-          <div class="section-heading">
-            <h2>Low Stock Alerts</h2>
-            <button class="secondary" data-go="products">View products</button>
-          </div>
-          <div id="low-stock-list"></div>
-        </div>
-      </section>
+                <h1>KELSIY'S <span>CLOSET</span></h1>
+                <p class="tagline">STYLE THAT SPEAKS</p>
+                <div class="decorative-line"></div>
+                <p class="system-name">
+                    Inventory and Sales Management System
+                </p>
+            </header>
 
-      <section class="page" id="products">
-        <h1>Products & Stock</h1>
-        <p class="subtitle">View products, prices and available quantities.</p>
-        <input class="search" id="product-search"
-          placeholder="Search by product name or category...">
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Product</th><th>Category</th><th>Size / Colour</th>
-                <th>Price (KSh)</th><th>Stock</th><th>Status</th>
-              </tr>
-            </thead>
-            <tbody id="product-rows"></tbody>
-          </table>
-        </div>
-      </section>
+            <div class="form-section" id="auth-view">
 
-      <section class="page" id="add-product">
-        <h1>Add a Product</h1>
-        <p class="subtitle">Enter the details of a product in your store.</p>
-        <div class="notice">
-          This draft stores new entries in this browser only. We will connect
-          the form to Supabase after the interface is ready.
-        </div>
+                <h2 id="form-title">Welcome Back</h2>
 
-        <form class="form-card" id="product-form">
-          <div class="form-grid">
-            <div class="field">
-              <label for="p-name">Product name *</label>
-              <input id="p-name" required placeholder="e.g. Denim jacket">
+                <p class="intro">
+                    Sign in to access your Kelsiy's Closet account.
+                </p>
+
+                <form id="auth-form">
+
+                    <div class="input-group">
+                        <label for="email">Email Address</label>
+                        <input
+                            type="email"
+                            id="email"
+                            placeholder="Enter your email address"
+                            autocomplete="email"
+                            required
+                        >
+                    </div>
+
+                    <div class="input-group">
+                        <label for="password">Password</label>
+                        <input
+                            type="password"
+                            id="password"
+                            placeholder="Enter your password"
+                            autocomplete="current-password"
+                            minlength="6"
+                            required
+                        >
+                    </div>
+
+                    <button type="submit" id="submit-button">
+                        Sign In
+                    </button>
+
+                </form>
+
+                <p id="message" role="status" aria-live="polite"></p>
+
+                <div class="account-option">
+                    <span id="switch-prompt">Don't have an account?</span>
+                    <button
+                        type="button"
+                        id="switch-mode"
+                        class="text-button"
+                    >
+                        Create Account
+                    </button>
+                </div>
+
+                <p class="security-note">
+                    Secure access for the business owner and customers.
+                </p>
+
             </div>
-            <div class="field">
-              <label for="p-category">Category *</label>
-              <select id="p-category" required>
-                <option value="">Choose category</option>
-                <option>Women's Clothing</option>
-                <option>Men's Clothing</option>
-                <option>Shoes</option>
-                <option>Accessories</option>
-                <option>Children's Clothing</option>
-                <option>Other</option>
-              </select>
-            </div>
-            <div class="field">
-              <label for="p-price">Price (KSh) *</label>
-              <input id="p-price" type="number" min="0.01" step="0.01" required>
-            </div>
-            <div class="field">
-              <label for="p-stock">Quantity in stock *</label>
-              <input id="p-stock" type="number" min="0" step="1" required>
-            </div>
-            <div class="field">
-              <label for="p-size">Size</label>
-              <input id="p-size" placeholder="e.g. M, L, XL">
-            </div>
-            <div class="field">
-              <label for="p-colour">Colour</label>
-              <input id="p-colour" placeholder="e.g. Burgundy">
-            </div>
-          </div>
-          <div class="field">
-            <label for="p-description">Description</label>
-            <textarea id="p-description" placeholder="Product details"></textarea>
-          </div>
-          <button class="primary" type="submit">Save Product</button>
-        </form>
-      </section>
 
-      <section class="page" id="sales">
-        <h1>Record a Sale</h1>
-        <p class="subtitle">Record an item sold and update the demo stock.</p>
-        <form class="form-card" id="sale-form">
-          <div class="field">
-            <label for="sale-product">Product *</label>
-            <select id="sale-product" required></select>
-          </div>
-          <div class="field">
-            <label for="sale-quantity">Quantity sold *</label>
-            <input id="sale-quantity" type="number" min="1" step="1" required>
-          </div>
-          <button class="primary" type="submit">Record Sale</button>
-        </form>
-        <div class="card" style="margin-top:22px">
-          <h2>Recent Sales</h2>
-          <div id="recent-sales"></div>
-        </div>
-      </section>
+            <!-- Displayed after successful sign-in -->
+            <section id="app-view" hidden>
 
-      <section class="page" id="catalogue">
-        <h1>Customer Catalogue</h1>
-        <p class="subtitle">Browse available items, prices and stock.</p>
-        <input class="search" id="catalogue-search"
-          placeholder="Search the catalogue...">
-        <div class="catalogue" id="catalogue-items"></div>
-      </section>
+                <h2 id="welcome-title">Welcome</h2>
+                <p id="role-message"></p>
 
-      <section class="page" id="reports">
-        <h1>Reports</h1>
-        <p class="subtitle">A summary of inventory and demo sales activity.</p>
-        <div class="stats">
-          <div class="card">
-            <div class="stat-title">Stock Value at Listed Prices</div>
-            <div class="stat-value" id="stock-value">KSh 0</div>
-          </div>
-          <div class="card">
-            <div class="stat-title">Recorded Sales Value</div>
-            <div class="stat-value" id="sales-value">KSh 0</div>
-          </div>
-          <div class="card">
-            <div class="stat-title">Low Stock Products</div>
-            <div class="stat-value" id="low-count">0</div>
-          </div>
-        </div>
-        <div class="card">
-          <h2>Recorded Sales</h2>
-          <div id="report-sales"></div>
-        </div>
-      </section>
+                <div id="owner-content" class="role-card" hidden>
+                    <h3>Owner Dashboard</h3>
+                    <p>
+                        Manage products, stock and sales.
+                    </p>
+                </div>
+
+                <div id="customer-content" class="role-card" hidden>
+                    <h3>Customer Catalogue</h3>
+                    <p>
+                        View products, available quantities,
+                        colours, sizes and prices.
+                    </p>
+                </div>
+
+                <button type="button" id="sign-out" class="sign-out-button">
+                    Sign Out
+                </button>
+
+            </section>
+
+            <footer class="login-footer">
+                <p>© 2026 Kelsiy's Closet</p>
+                <p>Fashion • Confidence • Elegance</p>
+            </footer>
+
+        </section>
+
     </main>
-  </div>
 
-  <footer>Kelsiy's Closet · Inventory and Sales Management System</footer>
-
-  <script>
-    // Temporary browser demo data. Not connected to Supabase yet.
-    const startingProducts = [
-      {
-        id: 1, name: "Classic Denim Jacket",
-        category: "Women's Clothing", description: "Everyday denim jacket",
-        size: "M", colour: "Blue", price: 2500, stock: 8
-      },
-      {
-        id: 2, name: "Men's Casual Shirt",
-        category: "Men's Clothing", description: "Smart casual shirt",
-        size: "L", colour: "White", price: 1800, stock: 3
-      },
-      {
-        id: 3, name: "Everyday Handbag",
-        category: "Accessories", description: "A versatile handbag",
-        size: "One size", colour: "Black", price: 2200, stock: 0
-      }
-    ];
-
-    let products = JSON.parse(
-      localStorage.getItem("kelsiy_demo_products") || "null"
-    ) || startingProducts;
-
-    let sales = JSON.parse(
-      localStorage.getItem("kelsiy_demo_sales") || "[]"
-    );
-
-    function saveDemo() {
-      localStorage.setItem("kelsiy_demo_products", JSON.stringify(products));
-      localStorage.setItem("kelsiy_demo_sales", JSON.stringify(sales));
-    }
-
-    function money(amount) {
-      return "KSh " + Number(amount).toLocaleString("en-KE", {
-        maximumFractionDigits: 2
-      });
-    }
-
-    function escapeHTML(value) {
-      return String(value ?? "").replace(/[&<>"']/g, char => ({
-        "&": "&amp;", "<": "&lt;", ">": "&gt;",
-        '"': "&quot;", "'": "&#39;"
-      })[char]);
-    }
-
-    function showPage(pageId) {
-      document.querySelectorAll(".page").forEach(page => {
-        page.classList.toggle("active", page.id === pageId);
-      });
-      document.querySelectorAll(".nav-button").forEach(button => {
-        button.classList.toggle("active", button.dataset.page === pageId);
-      });
-    }
-
-    document.querySelectorAll("[data-page]").forEach(button => {
-      button.addEventListener("click", () => showPage(button.dataset.page));
-    });
-
-    document.querySelectorAll("[data-go]").forEach(button => {
-      button.addEventListener("click", () => showPage(button.dataset.go));
-    });
-
-    function renderProducts() {
-      const query = document.getElementById("product-search").value.toLowerCase();
-
-      const filtered = products.filter(p =>
-        (p.name + " " + p.category).toLowerCase().includes(query)
-      );
-
-      document.getElementById("product-rows").innerHTML = filtered.length
-        ? filtered.map(p => `
-          <tr>
-            <td>${escapeHTML(p.name)}</td>
-            <td>${escapeHTML(p.category)}</td>
-            <td>${escapeHTML(p.size || "-")} / ${escapeHTML(p.colour || "-")}</td>
-            <td>${money(p.price)}</td>
-            <td>${p.stock}</td>
-            <td><span class="status ${p.stock <= 3 ? "low" : ""}">
-              ${p.stock === 0 ? "Out of stock" : p.stock <= 3 ? "Low stock" : "Available"}
-            </span></td>
-          </tr>`).join("")
-        : '<tr><td colspan="6" class="empty">No matching products found.</td></tr>';
-    }
-
-    function renderCatalogue() {
-      const query = document.getElementById("catalogue-search").value.toLowerCase();
-
-      const filtered = products.filter(p =>
-        (p.name + " " + p.category).toLowerCase().includes(query)
-      );
-
-      document.getElementById("catalogue-items").innerHTML = filtered.length
-        ? filtered.map(p => `
-          <article class="product-card">
-            <div class="product-image">♡</div>
-            <div class="product-info">
-              <h3>${escapeHTML(p.name)}</h3>
-              <p>${escapeHTML(p.category)} · ${escapeHTML(p.colour || "Colour not specified")}</p>
-              <div class="price">${money(p.price)}</div>
-              <p>${p.stock > 0 ? p.stock + " available" : "Currently unavailable"}</p>
-            </div>
-          </article>`).join("")
-        : '<p class="empty">No products found.</p>';
-    }
-
-    function renderSales() {
-      const html = sales.slice().reverse().map(s => `
-        <tr>
-          <td>${escapeHTML(s.name)}</td>
-          <td>${s.quantity}</td>
-          <td>${money(s.total)}</td>
-          <td>${escapeHTML(s.date)}</td>
-        </tr>`).join("");
-
-      const table = html
-        ? `<div class="table-wrap"><table>
-          <thead><tr><th>Product</th><th>Quantity</th><th>Total</th><th>Date</th></tr></thead>
-          <tbody>${html}</tbody></table></div>`
-        : '<p class="empty">No sales have been recorded yet.</p>';
-
-      document.getElementById("recent-sales").innerHTML = table;
-      document.getElementById("report-sales").innerHTML = table;
-    }
-
-    function renderSaleOptions() {
-      const select = document.getElementById("sale-product");
-      const available = products.filter(p => p.stock > 0);
-
-      select.innerHTML = '<option value="">Choose a product</option>' +
-        available.map(p =>
-          `<option value="${p.id}">${escapeHTML(p.name)} — ${p.stock} available</option>`
-        ).join("");
-    }
-
-    function renderDashboard() {
-      document.getElementById("total-products").textContent = products.length;
-      document.getElementById("total-stock").textContent =
-        products.reduce((sum, p) => sum + Number(p.stock), 0);
-      document.getElementById("total-sales").textContent = sales.length;
-
-      const low = products.filter(p => p.stock <= 3);
-      document.getElementById("low-count").textContent = low.length;
-      document.getElementById("low-stock-list").innerHTML = low.length
-        ? low.map(p => `
-          <p>${escapeHTML(p.name)} — ${p.stock} remaining
-          ${p.stock === 0 ? "(Out of stock)" : "(Low stock)"}</p>`
-        ).join("")
-        : '<p class="empty">No low-stock products.</p>';
-
-      const stockValue = products.reduce(
-        (sum, p) => sum + Number(p.price) * Number(p.stock), 0
-      );
-      const salesValue = sales.reduce((sum, s) => sum + Number(s.total), 0);
-
-      document.getElementById("stock-value").textContent = money(stockValue);
-      document.getElementById("sales-value").textContent = money(salesValue);
-    }
-
-    function renderAll() {
-      renderProducts();
-      renderCatalogue();
-      renderSaleOptions();
-      renderSales();
-      renderDashboard();
-    }
-
-    document.getElementById("product-search").addEventListener("input", renderProducts);
-    document.getElementById("catalogue-search").addEventListener("input", renderCatalogue);
-
-    document.getElementById("product-form").addEventListener("submit", event => {
-      event.preventDefault();
-
-      const name = document.getElementById("p-name").value.trim();
-      const category = document.getElementById("p-category").value;
-      const price = Number(document.getElementById("p-price").value);
-      const stock = Number(document.getElementById("p-stock").value);
-
-      if (!name || !category || !Number.isFinite(price) || price <= 0 ||
-          !Number.isInteger(stock) || stock < 0) {
-        alert("Please enter a valid name, category, price and whole-number stock quantity.");
-        return;
-      }
-
-      products.push({
-        id: Date.now(),
-        name,
-        category,
-        price,
-        stock,
-        size: document.getElementById("p-size").value.trim(),
-        colour: document.getElementById("p-colour").value.trim(),
-        description: document.getElementById("p-description").value.trim()
-      });
-
-      saveDemo();
-      event.target.reset();
-      renderAll();
-      showPage("products");
-      alert("Product added to the temporary browser demo.");
-    });
-
-    document.getElementById("sale-form").addEventListener("submit", event => {
-      event.preventDefault();
-
-      const productId = Number(document.getElementById("sale-product").value);
-      const quantity = Number(document.getElementById("sale-quantity").value);
-      const product = products.find(p => p.id === productId);
-
-      if (!product || !Number.isInteger(quantity) || quantity < 1 ||
-          quantity > product.stock) {
-        alert("Choose a product and enter a valid quantity available in stock.");
-        return;
-      }
-
-      product.stock -= quantity;
-      sales.push({
-        name: product.name,
-        quantity,
-        total: quantity * Number(product.price),
-        date: new Date().toLocaleString()
-      });
-
-      saveDemo();
-      event.target.reset();
-      renderAll();
-      alert("Demo sale recorded and browser-demo stock updated.");
-    });
-
-    renderAll();
-  </script>
 </body>
 </html>
+   
+
+     
+
+
+
+    
+         
+        
+        
+    
